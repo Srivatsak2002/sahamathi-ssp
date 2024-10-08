@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import "./signIn.css";
 import { useNavigate } from "react-router-dom";
+import { userTokenGenerate } from "../../Services/api";
+import { toast } from "react-toastify";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
-  const handleSubmit = (event: React.FormEvent) => {
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle sign-in logic here
-    console.log({ email, password });
+    setError("");
+    try {
+      const response = await userTokenGenerate({ username: email, password });
+      const token = response.data.accessToken; 
+      toast.success("Signed in successfully!");
+
+      navigate("/home", { state: { email ,token} });
+    } catch (error) {
+      setError("Incorrect username or password");
+      toast.error("Failed to sign in. Please check your credentials.");
+    }
   };
 
   return (
@@ -38,6 +51,8 @@ const SignIn: React.FC = () => {
               required
             />
           </div>
+
+          {error && <p className="error-message">{error}</p>}
 
           <div className="signin-footer">
             <a href="#" className="forgot-password">

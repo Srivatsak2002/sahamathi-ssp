@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import './register.css';
+import React, { useState } from "react";
+import "./register.css";
+import { useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -75,8 +77,12 @@ const Register: React.FC = () => {
           </div>
 
           <div className="register-footer">
-            <a href="#" className="back-to-login">Back to Login</a>
-            <button type="submit" className="register-btn">Register</button>
+            <a href="#" onClick={() => navigate("/signin")}>
+              Back to Login
+            </a>
+            <button type="submit" className="register-btn">
+              Register
+            </button>
           </div>
         </form>
       </div>

@@ -1,0 +1,18 @@
+/* TokenInfo.css */
+
+.token-info {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .token-info h2 {
+    margin-bottom: 10px;
+  }
+  
+  .token-info p {
+    margin: 5px 0;
+  }
+  
