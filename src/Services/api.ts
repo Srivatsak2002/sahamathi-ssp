@@ -1,29 +1,11 @@
-// src/api.ts
 import axios from "axios";
 
-const API_BASE_URL = "https://api.dev.sahamati.org.in/iam/v1";
-
-interface UserRegisterPayload {
-  email: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  txnId: string;
-}
-
+const API_BASE_URL = "http://localhost:9000";
 interface UserTokenGeneratePayload {
   username: string;
   password: string;
 }
 
-interface UserPasswordResetPayload {
-  email: string;
-  txnId: string;
-}
-
-export const userRegister = (data: UserRegisterPayload) => {
-  return axios.post(`${API_BASE_URL}/user/register`, data);
-};
 
 export const userTokenGenerate = (data: UserTokenGeneratePayload) => {
   const formData = new URLSearchParams();
@@ -40,6 +22,22 @@ export const userTokenGenerate = (data: UserTokenGeneratePayload) => {
   return response;
 };
 
-export const userPasswordReset = (data: UserPasswordResetPayload) => {
-  return axios.post(`${API_BASE_URL}/user/password/reset`, data);
+
+export const resetEntitySecret = (entityId: string, token: string) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`, 
+  };
+
+  return axios.post(`${API_BASE_URL}/entity/secret/reset`, { entityId }, { headers });
+};
+
+
+export const readEntitySecret = (entityId: string, token: string) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`, 
+  };
+
+  return axios.post(`${API_BASE_URL}/entity/secret/read`, { entityId }, { headers });
 };

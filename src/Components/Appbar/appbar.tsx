@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import LogoutIcon from "@mui/icons-material/Logout"; // Import the Logout icon
+import LogoutIcon from "@mui/icons-material/Logout"; 
 import { useNavigate } from "react-router-dom";
 
 interface ResponsiveAppBarProps {

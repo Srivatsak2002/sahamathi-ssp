@@ -1,17 +1,35 @@
-import React from 'react';
-import "./userInfo.css"
+import React from "react";
+import { Card, CardContent, Typography } from "@mui/material";
+
 interface UserInfoProps {
+  title: string;
   name: string;
   email: string;
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ name, email }) => {
+const UserInfo: React.FC<UserInfoProps> = ({ title, name, email }) => {
   return (
-    <div className="user-info">
-      <h2>User Information</h2>
-      <p><strong>Name:</strong> {name}</p>
-      <p><strong>Email:</strong> {email}</p>
-    </div>
+    <Card
+      sx={{
+        margin: "20px 0",
+        padding: "15px",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+        maxWidth: "1090px",
+        ml: "280px",
+      }}
+    >
+      <CardContent>
+        <Typography variant="h5" component="div" sx={{ marginBottom: "10px" }}>
+          {title}
+        </Typography>
+        <Typography variant="body1" sx={{ margin: "5px 0" }}>
+          <strong>Name:</strong> {name}
+        </Typography>
+        <Typography variant="body1" sx={{ margin: "5px 0" }}>
+          <strong>Email:</strong> {email}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 

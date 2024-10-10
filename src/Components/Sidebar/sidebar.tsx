@@ -1,47 +1,64 @@
-import React from 'react';
-import { FaHome, FaUser, FaUsers, FaAppStore } from 'react-icons/fa';
-import { HiOutlineBookOpen } from 'react-icons/hi2';
-import './sidebar.css';
+import React from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from "@mui/icons-material/Person";
+import GroupIcon from "@mui/icons-material/Group";
+import AppsIcon from "@mui/icons-material/Apps";
+import BookIcon from "@mui/icons-material/Book";
+import { useLocation } from "react-router-dom";
+import "./sidebar.css";
 
 const Sidebar: React.FC = () => {
+  const location = useLocation();
+
   return (
     <div className="sidebar">
       <nav className="sidebar-menu">
         <ul>
           <li>
-            <a href="/home">
-              <FaHome className="sidebar-icon" />
+            <a
+              href="/home"
+              className={location.pathname === "/home" ? "active" : ""}
+            >
+              <HomeIcon className="sidebar-icon" />
               Home
             </a>
           </li>
           <li>
-            <a href="/profile">
-              <FaUser className="sidebar-icon" />
+            <a
+              href="/profile"
+              className={location.pathname === "/profile" ? "active" : ""}
+            >
+              <PersonIcon className="sidebar-icon" />
               Profile
             </a>
           </li>
           <li>
-            <a href="/users">
-              <FaUsers className="sidebar-icon" />
+            <a
+              href="/users"
+              className={location.pathname === "/users" ? "active" : ""}
+            >
+              <GroupIcon className="sidebar-icon" />
               Users
             </a>
           </li>
           <li>
-            <a href="/participants">
-              <FaUsers className="sidebar-icon" />
-              Participants
+            <a
+              href="/settings"
+              className={location.pathname === "/settings" ? "active" : ""}
+            >
+              <AppsIcon className="sidebar-icon" />
+              Settings
             </a>
           </li>
           <li>
-            <a href="/apps">
-              <FaAppStore className="sidebar-icon" />
-              Apps
-            </a>
-          </li>
-          <li>
-            <a href="/explore-terminology">
-              <HiOutlineBookOpen className="sidebar-icon" />
-              Explore Terminology
+            <a
+              href="/explore-terminology"
+              className={
+                location.pathname === "/explore-terminology" ? "active" : ""
+              }
+            >
+              <BookIcon className="sidebar-icon" />
+              Explore
             </a>
           </li>
         </ul>
