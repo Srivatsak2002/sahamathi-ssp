@@ -1,34 +1,56 @@
 import React, { useState } from "react";
-import { Card, CardContent, Typography, Box, IconButton } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  IconButton,
+  Stack,
+  Tooltip,
+} from "@mui/material";
 import { SvgIconComponent } from "@mui/icons-material";
-import VisibilityIcon from "@mui/icons-material/Visibility"; // Import the eye icon
-import axios from "axios";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import RefreshIcon from "@mui/icons-material/Refresh"; 
+import { readEntitySecret, resetEntitySecret } from "../../Services/api"; 
+import { toast } from "react-toastify";
 
 interface InfoCardProps {
   icon: React.ReactElement<SvgIconComponent>;
   title: string;
-  entityId: string; // Add entityId prop
-  token: string; // Add token prop
+  entityId: string;
+  token: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ icon, title, entityId, token }) => {
-  const [secret, setSecret] = useState<string | null>(null); // State for the secret
+const InfoCard: React.FC<InfoCardProps> = ({
+  icon,
+  title,
+  entityId,
+  token,
+}) => {
+  const [secret, setSecret] = useState<string | null>(null);
 
   const handleReadSecret = async () => {
     try {
-      const response = await axios.post(
-        `https://api.dev.sahamati.org.in/iam/v1/entity/secret/read`,
-        { entityId },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-        }
-      );
-      setSecret(response.data.secret); // Set the secret in state
+      if (!secret) {
+        const response = await readEntitySecret(entityId, token);
+        setSecret(response.data.secret);
+      } else {
+        setSecret(null);
+      }
     } catch (error) {
       console.error("Error reading entity secret:", error);
+      toast.error("Error reading entity secret. Please try again.");
+    }
+  };
+
+  const handleResetSecret = async () => {
+    try {
+      await resetEntitySecret(entityId, token);
+      setSecret(null);  
+      toast.success("Entity secret reset successfully.");
+    } catch (error) {
+      console.error("Error resetting entity secret:", error);
+      toast.error("Error resetting entity secret. Please try again.");
     }
   };
 
@@ -50,19 +72,48 @@ const InfoCard: React.FC<InfoCardProps> = ({ icon, title, entityId, token }) => 
             marginBottom: "8px",
           }}
         >
-          <Box sx={{ marginTop: "-4px", marginRight: "8px" }}>{icon}</Box>
-          <Typography variant="h5">{title}</Typography>
-          <IconButton onClick={handleReadSecret} sx={{ marginLeft: 'auto' }}>
-            <VisibilityIcon />
-          </IconButton>
+          <Stack
+            direction="column"
+            spacing={1}
+            sx={{ marginTop: "-4px", marginRight: "8px" }}
+          >
+            <Box>{icon}</Box>
+            <Typography variant="h5">{title}</Typography>
+            <Typography>{entityId}</Typography>
+          </Stack>
         </Box>
-        <Typography
-          variant="body1"
-          component="div"
-          sx={{ whiteSpace: "pre-line", fontSize: "18px" }}
-        >
-          {secret ? `Secret: ${secret}` : "Secret not revealed yet."}
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography
+            variant="body1"
+            component="div"
+            sx={{
+              whiteSpace: "pre-line",
+              fontSize: "14px",
+              mr: "4rem",
+            }}
+          >
+            {secret
+              ? `Secret: ${secret}`
+              : "Secret:XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
+          </Typography>
+          <Tooltip
+            title={
+              secret
+                ? "Click here to hide the secret"
+                : "Click to read the secret"
+            }
+            arrow
+          >
+            <IconButton onClick={handleReadSecret}>
+              <VisibilityIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Reset the entity secret" arrow>
+            <IconButton onClick={handleResetSecret}>
+              <RefreshIcon /> 
+            </IconButton>
+          </Tooltip>
+        </Box>
       </CardContent>
     </Card>
   );

@@ -22,7 +22,6 @@ export const userTokenGenerate = (data: UserTokenGeneratePayload) => {
   return response;
 };
 
-
 export const resetEntitySecret = (entityId: string, token: string) => {
   const headers = {
     "Content-Type": "application/json",

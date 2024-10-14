@@ -16,7 +16,7 @@ const Home = () => {
 
   const entityDetailsArray = Object.keys(entityMeta).map((key) => ({
     title: key,
-    entityId: key, // Assuming entityId is the key
+    entityId: key, 
     value: entityMeta[key].join(", "),
   }));
 
@@ -54,8 +54,8 @@ const Home = () => {
                   <AccountCircleIcon sx={{ color: "green" }} fontSize="large" />
                 }
                 title={`Entity ${index + 1}`}
-                entityId={entity.entityId} // Pass the entityId
-                token={token} // Pass the token
+                entityId={entity.entityId}
+                token={token} 
               />
             ))}
           </Box>

@@ -51,5 +51,5 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3"
   },
-  "proxy": "https://api.dev.sahamati.org.in"
+  "proxy": "http://localhost:9000"
 }
