@@ -6,6 +6,7 @@ import NotFound from './Pages/Notfound/notFound';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './Pages/Home/home';
+import ForgotPassword from './Pages/Forgotpassword/forgotPassword';
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const App: React.FC = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path='/home' element={<Home />} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

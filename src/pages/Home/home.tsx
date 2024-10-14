@@ -4,25 +4,26 @@ import ResponsiveAppBar from "../../Components/Appbar/appbar";
 import "./home.css";
 import UserInfo from "../../Components/Userinfo/userinfo";
 import Sidebar from "../../Components/Sidebar/sidebar";
-import InfoCard from "../../Components/Card/card";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import InfoCard from "../../Components/EntityInfoCard/entityInfoCard";
 import { Typography, Box } from "@mui/material";
+import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 
 const Home = () => {
   const location = useLocation();
   const { email, token } = location.state as { email: string; token: string };
   const decodedToken = JSON.parse(atob(token.split(".")[1]));
   const entityMeta = decodedToken.entity_meta;
+  const username = decodedToken.name;
 
   const entityDetailsArray = Object.keys(entityMeta).map((key) => ({
     title: key,
-    entityId: key, 
+    entityId: key,
     value: entityMeta[key].join(", "),
   }));
 
   return (
     <div>
-      <ResponsiveAppBar email={email} />
+      <ResponsiveAppBar name={username} />
       <div className="home-container">
         <Sidebar />
         <div className="content">
@@ -35,7 +36,7 @@ const Home = () => {
             name={decodedToken.name}
             email={decodedToken.email}
           />
-          <Typography variant="h6">Entities</Typography>
+          <Typography variant="h5">Entities</Typography>
 
           <Box
             sx={{
@@ -51,20 +52,17 @@ const Home = () => {
               <InfoCard
                 key={index}
                 icon={
-                  <AccountCircleIcon sx={{ color: "green" }} fontSize="large" />
+                  <AssuredWorkloadIcon
+                    sx={{ color: "green" }}
+                    fontSize="large"
+                  />
                 }
                 title={`Entity ${index + 1}`}
                 entityId={entity.entityId}
-                token={token} 
+                token={token}
               />
             ))}
           </Box>
-
-          <UserInfo
-            title="User Information"
-            name={decodedToken.name}
-            email={decodedToken.email}
-          />
         </div>
       </div>
     </div>

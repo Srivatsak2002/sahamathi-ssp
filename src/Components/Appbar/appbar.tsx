@@ -14,10 +14,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 
 interface ResponsiveAppBarProps {
-  email: string;
+  name: string;
 }
 
-function ResponsiveAppBar({ email }: ResponsiveAppBarProps) {
+function ResponsiveAppBar({ name }: ResponsiveAppBarProps) {
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -92,7 +92,7 @@ function ResponsiveAppBar({ email }: ResponsiveAppBarProps) {
             >
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography sx={{ textAlign: "center", textTransform: "none" }}>
-                  {email}
+                  {name}
                 </Typography>
               </MenuItem>
             </Menu>
@@ -126,20 +126,20 @@ function ResponsiveAppBar({ email }: ResponsiveAppBarProps) {
                 textTransform: "none",
               }}
             >
-              {email}
+              {name}
             </Typography>
 
             {/* Avatar and settings */}
-            <Tooltip title="Open settings">
+            {/* <Tooltip title="Open settings"> */}
               <IconButton
                 onClick={handleOpenUserMenu}
                 sx={{ p: 0, marginLeft: 2 }}
               >
                 <Avatar sx={{ bgcolor: "#303f9f" }}>
-                  {getInitials(email)}
+                  {getInitials(name)}
                 </Avatar>
               </IconButton>
-            </Tooltip>
+            {/* </Tooltip> */}
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

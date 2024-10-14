@@ -15,10 +15,10 @@ const SignIn: React.FC = () => {
     setError("");
     try {
       const response = await userTokenGenerate({ username: email, password });
-      const token = response.data.accessToken; 
+      const token = response.data.accessToken;
       toast.success("Signed in successfully!");
-      console.log("token",token)
-      navigate("/home", { state: { email ,token} });
+      console.log("token", token);
+      navigate("/home", { state: { email, token } });
     } catch (error) {
       setError("Incorrect username or password");
       toast.error("Failed to sign in. Please check your credentials.");
@@ -55,9 +55,14 @@ const SignIn: React.FC = () => {
           {error && <p className="error-message">{error}</p>}
 
           <div className="signin-footer">
-            <a href="#" className="forgot-password">
+            <a
+              href="#"
+              className="forgot-password"
+              onClick={() => navigate("/forgotpassword")}
+            >
               Forgot Password?
             </a>
+
             <button type="submit" className="signin-btn">
               Sign In
             </button>
